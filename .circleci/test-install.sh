@@ -7,9 +7,9 @@ rm -rf /usr/local/bin/docker-compose
 
 cd ../..
 
-[ -d btcpayserver-docker ] || mv project btcpayserver-docker
+[ -d anvil-docker ] || mv project anvil-docker
 
-cd btcpayserver-docker
+cd anvil-docker
 
 export BTCPAY_HOST="btcpay.local"
 export REVERSEPROXY_DEFAULT_HOST="btcpay.local"

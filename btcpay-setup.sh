@@ -44,7 +44,7 @@ if ! git -C . rev-parse &> /dev/null || [ ! -d "Generated" ]; then
         cd ..
     fi
     if ! git -C . rev-parse || [[ ! -d "Generated" ]]; then
-        echo "You must run this script inside the git repository of btcpayserver-docker"
+        echo "You must run this script inside the git repository of anvil-docker"
         return
     fi
 fi
@@ -266,7 +266,7 @@ if [[ "${BTCPAYGEN_ADDITIONAL_FRAGMENTS}" == *opt-txindex* ]] && \
         return
 fi
 
-cd "$BTCPAY_BASE_DIRECTORY/btcpayserver-docker"
+cd "$BTCPAY_BASE_DIRECTORY/anvil-docker"
 . helpers.sh
 btcpay_expand_variables
 
@@ -472,9 +472,9 @@ Requires=docker.service network-online.target
 Type=oneshot
 RemainAfterExit=yes
 
-ExecStart=/bin/bash -c  '. \"$BASH_PROFILE_SCRIPT\" && cd \"\$BTCPAY_BASE_DIRECTORY/btcpayserver-docker\" && . helpers.sh && btcpay_up'
-ExecStop=/bin/bash -c   '. \"$BASH_PROFILE_SCRIPT\" && cd \"\$BTCPAY_BASE_DIRECTORY/btcpayserver-docker\" && . helpers.sh && btcpay_down'
-ExecReload=/bin/bash -c '. \"$BASH_PROFILE_SCRIPT\" && cd \"\$BTCPAY_BASE_DIRECTORY/btcpayserver-docker\" && . helpers.sh && btcpay_restart'
+ExecStart=/bin/bash -c  '. \"$BASH_PROFILE_SCRIPT\" && cd \"\$BTCPAY_BASE_DIRECTORY/anvil-docker\" && . helpers.sh && btcpay_up'
+ExecStop=/bin/bash -c   '. \"$BASH_PROFILE_SCRIPT\" && cd \"\$BTCPAY_BASE_DIRECTORY/anvil-docker\" && . helpers.sh && btcpay_down'
+ExecReload=/bin/bash -c '. \"$BASH_PROFILE_SCRIPT\" && cd \"\$BTCPAY_BASE_DIRECTORY/anvil-docker\" && . helpers.sh && btcpay_restart'
 
 [Install]
 WantedBy=multi-user.target" > /etc/systemd/system/btcpayserver.service
@@ -517,7 +517,7 @@ stop on runlevel [!2345]
 
 script
     . \"$BASH_PROFILE_SCRIPT\"
-    cd \"\$BTCPAY_BASE_DIRECTORY/btcpayserver-docker\"
+    cd \"\$BTCPAY_BASE_DIRECTORY/anvil-docker\"
     . helpers.sh
     btcpay_up
 end script" > /etc/init/start_containers.conf
@@ -549,7 +549,7 @@ if $START && [[ -f "$BTCPAY_HOST_SSHKEYFILE" ]]; then
     docker cp "$BTCPAY_HOST_SSHKEYFILE" $(docker ps --filter "name=_btcpayserver_" -q):$BTCPAY_SSHKEYFILE
 fi
 
-cd "$BTCPAY_BASE_DIRECTORY/btcpayserver-docker"
+cd "$BTCPAY_BASE_DIRECTORY/anvil-docker"
 install_tooling
 
 cd $ORIGINAL_DIRECTORY

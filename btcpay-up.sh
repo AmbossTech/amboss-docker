@@ -11,6 +11,6 @@ fi
 
 . ${BASH_PROFILE_SCRIPT}
 
-cd "$BTCPAY_BASE_DIRECTORY/btcpayserver-docker"
+cd "$BTCPAY_BASE_DIRECTORY/anvil-docker"
 . helpers.sh
 btcpay_up

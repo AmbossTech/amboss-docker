@@ -15,7 +15,7 @@ export ACME_CA_URI="production"
 [[ "$OLD_HOST" == "$REVERSEPROXY_DEFAULT_HOST" ]] && export REVERSEPROXY_DEFAULT_HOST="$NEW_HOST"
 pushd . > /dev/null
 # Modify environment file
-cd "$BTCPAY_BASE_DIRECTORY/btcpayserver-docker"
+cd "$BTCPAY_BASE_DIRECTORY/anvil-docker"
 . helpers.sh
 btcpay_update_docker_env
 btcpay_up

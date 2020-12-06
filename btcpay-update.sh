@@ -23,7 +23,7 @@ if [[ $BTCPAY_DOCKER_COMPOSE != *docker-compose.generated.yml ]]; then
     exit
 fi
 
-cd "$BTCPAY_BASE_DIRECTORY/btcpayserver-docker"
+cd "$BTCPAY_BASE_DIRECTORY/anvil-docker"
 
 if [[ "$1" != "--skip-git-pull" ]]; then
     git pull --force
