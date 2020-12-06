@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  redis:
+    restart: unless-stopped
+    image: "redis:alpine"
+    volumes:
+      - redis_datadir:/var/lib/redis
+
+volumes:
+  redis_datadir:

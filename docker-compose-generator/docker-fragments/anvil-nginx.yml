@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+
+  anvil-web:
+    environment:
+      # NGINX settings
+      VIRTUAL_NETWORK: nginx-proxy
+      VIRTUAL_PORT: 3000
+      VIRTUAL_HOST: ${BTCPAY_HOST},${BTCPAY_ADDITIONAL_HOSTS}
+      VIRTUAL_HOST_NAME: "btcpay"
+      SSL_POLICY: Mozilla-Modern
+
+      # Let's encrypt settings
+      LETSENCRYPT_HOST: ${BTCPAY_HOST},${BTCPAY_ADDITIONAL_HOSTS}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:-<no value>}

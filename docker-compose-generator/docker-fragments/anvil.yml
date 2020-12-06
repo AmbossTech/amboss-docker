@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+
+  anvil-event:
+    container_name: anvil-event
+    image: "amboss/anvil-event:latest"
+    restart: unless-stopped
+    environment:
+      NODE_ENV: "production"
+    depends_on:
+      - postgres
+      - redis
+
+  anvil-server:
+    container_name: anvil-server
+    image: "amboss/anvil-server:latest"
+    restart: unless-stopped
+    environment:
+      POSTGRES_URL: "postgres"
+      NODE_ENV: "production"
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+      - redis
+
+  anvil-web:
+    container_name: anvil-web
+    image: "amboss/anvil-web:latest"
+    restart: unless-stopped
+    environment:
+      NODE_ENV: "production"
+      SERVER_SSR_URL: "http://anvil-server:4000/graphql"
+      SERVER_URL: "http://localhost:4000/graphql"
+      WS_URL: "ws://localhost:4000/graphql"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - anvil-server
+
+required:
+  - "postgres"
+  - "redis"
