@@ -44,3 +44,6 @@ services:
 required:
   - "postgres"
   - "redis"
+  - "anvil"
+recommended:
+  - "opt-add-tor"
