@@ -11,6 +11,7 @@ RUN dotnet publish --output /app/ --configuration Release
 FROM mcr.microsoft.com/dotnet/core/runtime:3.1.4-buster-slim
 LABEL org.btcpayserver.image=docker-compose-generator
 WORKDIR /datadir
+
 WORKDIR /app
 ENV APP_DATADIR=/datadir
 VOLUME /datadir
