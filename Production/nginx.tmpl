@@ -39,6 +39,11 @@
 		proxy_pass http://bitcoin_rtl:3000/rtl/;
 	}
 		{{ end }}
+		{{ if (eq $serviceName "anvil-server") }}
+	location /graphql/ {
+		proxy_pass http://anvil-server:4000/graphql/;
+	}
+		{{ end }}
 		{{ if (eq $serviceName "bitcoin_thub") }}
 	location /thub/ {
 		rewrite ^/thub(.*)$ $1 break;
