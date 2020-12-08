@@ -170,7 +170,7 @@ namespace DockerGenerator
 
 			var dockerImages = ((YamlMappingNode)output["services"]).Children.Select(kv => kv.Value["image"].ToString()).ToList();
 			dockerImages.Add("btcpayserver/docker-compose-builder:1.24.1");
-			dockerImages.Add("btcpayserver/docker-compose-generator:latest");
+			dockerImages.Add("amboss/docker-compose-generator:latest");
 			StringBuilder pullImageSh = new StringBuilder();
 			pullImageSh.Append($"#!/bin/bash\n\n");
 			pullImageSh.Append($"# This script is automatically generated via the docker-compose generator and can be use to pull all required docker images \n");

@@ -111,7 +111,7 @@ Check out this video if you're interested in learning more about setting up [BTC
 * `LETSENCRYPT_EMAIL`: An email will be sent to this address if certificate expires and fails to renew automatically (eg. `me@example.com`)
 * `ACME_CA_URI`: The API endpoint to ask for HTTPS certificate (Default: `production`)
 * `BTCPAY_ENABLE_SSH`: Optional, gives BTCPay Server SSH access to the host by allowing it to edit authorized_keys of the host, it can be used for managing the authorized_keys or updating BTCPay Server directly through the website. (Default: false)
-* `BTCPAYGEN_DOCKER_IMAGE`: Optional, Specify which generator image to use if you have customized the C# generator. Set to `btcpayserver/docker-compose-generator:local` to build the generator locally at runtime.
+* `BTCPAYGEN_DOCKER_IMAGE`: Optional, Specify which generator image to use if you have customized the C# generator. Set to `amboss/docker-compose-generator:local` to build the generator locally at runtime.
 * `BTCPAY_IMAGE`: Optional, Specify which btcpayserver image to use if you have a customized btcpayserver.
 * `BTCPAYGEN_EXCLUDE_FRAGMENTS`:  Semicolon-separated list of fragments you want to forcefully exclude (eg. `litecoin-clightning`)
 * `TOR_RELAY_NICKNAME`: If tor relay is activated with opt-add-tor-relay, the relay nickname
@@ -292,19 +292,19 @@ BTCPAY_SSHKEYFILE=/datadir/id_rsa
 3. Create a docker-compose fragment ([Example for BTC](docker-compose-generator/docker-fragments/bitcoin.yml))
 4. Add your `CryptoDefinition` ([Example for BTC](docker-compose-generator/src/CryptoDefinition.cs))
 
-`build.sh` is using a pre-built image of the `docker-compose generator` on [docker hub](https://hub.docker.com/r/btcpayserver/docker-compose-generator/).
-If you modify the code source of `docker-compose generator` (for example, the `CryptoDefinition` [Example for BTC](docker-compose-generator/src/CryptoDefinition.cs)), you need to configure `build.sh` to use your own image by setting the environment variable `BTCPAYGEN_DOCKER_IMAGE` to `btcpayserver/docker-compose-generator:local`.
+`build.sh` is using a pre-built image of the `docker-compose generator` on [docker hub](https://hub.docker.com/r/amboss/docker-compose-generator/).
+If you modify the code source of `docker-compose generator` (for example, the `CryptoDefinition` [Example for BTC](docker-compose-generator/src/CryptoDefinition.cs)), you need to configure `build.sh` to use your own image by setting the environment variable `BTCPAYGEN_DOCKER_IMAGE` to `amboss/docker-compose-generator:local`.
 
 ```bash
 cd docker-compose-generator
-BTCPAYGEN_DOCKER_IMAGE="btcpayserver/docker-compose-generator:local"
+BTCPAYGEN_DOCKER_IMAGE="amboss/docker-compose-generator:local"
 ```
 
 Or on powershell:
 
 ```powershell
 cd docker-compose-generator
-$BTCPAYGEN_DOCKER_IMAGE="btcpayserver/docker-compose-generator:local"
+$BTCPAYGEN_DOCKER_IMAGE="amboss/docker-compose-generator:local"
 ```
 
 Then run `./build.sh` or `. .\build.ps1`.
