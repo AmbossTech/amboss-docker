@@ -25,7 +25,7 @@ services:
       - "nginx_html:/usr/share/nginx/html"
     entrypoint: /usr/local/bin/docker-gen -notify-sighup nginx -watch -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
     links:
-      - btcpayserver
+      - anvil
       - nginx
 volumes:
   nginx_conf:
@@ -36,7 +36,6 @@ volumes:
 exclusive:
   - proxy
 required:
-  - "btcpayserver-nginx"
   - "anvil-nginx"
 recommended:
   - "nginx-https"

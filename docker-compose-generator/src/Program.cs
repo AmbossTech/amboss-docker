@@ -57,7 +57,7 @@ namespace DockerGenerator
 					fragments.Add("btcpayserver-noreverseproxy");
 					break;
 			}
-			fragments.Add("btcpayserver");
+			fragments.Add("anvil");
 			
 			bool hasAltcoins = false;
 			foreach (var crypto in cryptoDefinitions)
