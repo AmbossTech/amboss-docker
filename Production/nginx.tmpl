@@ -40,8 +40,8 @@
 	}
 		{{ end }}
 		{{ if (eq $serviceName "anvil-server") }}
-	location /graphql/ {
-		proxy_pass http://anvil-server:4000/graphql/;
+	location /graphql {
+		proxy_pass http://anvil-server:4000/graphql;
 	}
 		{{ end }}
 		{{ if (eq $serviceName "bitcoin_thub") }}
