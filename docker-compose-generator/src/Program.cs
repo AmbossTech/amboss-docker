@@ -57,7 +57,7 @@ namespace DockerGenerator
 			}
 			fragments.Add("anvil");
 
-			if (composition.WithFullNode === "true") {
+			if (composition.WithFullNode == "true") {
 				fragments.Add("bitcoin");
 
 				switch (composition.SelectedLN)
