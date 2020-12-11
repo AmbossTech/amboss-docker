@@ -36,15 +36,7 @@ namespace DockerGenerator
 		public static DockerComposition FromEnvironmentVariables()
 		{
 			DockerComposition composition = new DockerComposition();
-			composition.WithFullNode = (Environment.GetEnvironmentVariable("BTCPAYGEN_FULLNODE") ?? "").ToLowerInvariant();
-			composition.SelectedCryptos = new HashSet<string>();
-			for(int i = 1; i < 10; i++)
-			{
-				var selectedCrypto = Environment.GetEnvironmentVariable("BTCPAYGEN_CRYPTO" + i);
-				if(string.IsNullOrEmpty(selectedCrypto))
-					continue;
-				composition.SelectedCryptos.Add(selectedCrypto.ToLowerInvariant());
-			}
+			composition.WithFullNode = (Environment.GetEnvironmentVariable("ANVIL_FULLNODE") ?? "").ToLowerInvariant();
 			composition.SelectedProxy = (Environment.GetEnvironmentVariable("BTCPAYGEN_REVERSEPROXY") ?? "").ToLowerInvariant();
 			composition.SelectedLN = (Environment.GetEnvironmentVariable("BTCPAYGEN_LIGHTNING") ?? "").ToLowerInvariant();
 			composition.AdditionalFragments = (Environment.GetEnvironmentVariable("BTCPAYGEN_ADDITIONAL_FRAGMENTS") ?? "").ToLowerInvariant()

@@ -18,7 +18,6 @@ namespace DockerGenerator
 			var composition = DockerComposition.FromEnvironmentVariables();
 			
 			Console.WriteLine("WithFullNode: " + composition.WithFullNode);
-			Console.WriteLine("Crypto: " + string.Join(", ", composition.SelectedCryptos.ToArray()));
 			Console.WriteLine("Lightning: " + composition.SelectedLN);
 			Console.WriteLine("ReverseProxy: " + composition.SelectedProxy);
 			var generatedLocation = Path.GetFullPath(Path.Combine(root, "Generated"));
@@ -41,9 +40,6 @@ namespace DockerGenerator
 			var root = Environment.GetEnvironmentVariable("INSIDE_CONTAINER") == "1" ? "app" : "docker-compose-generator";
 			 root = FindRoot(root);
 			var fragmentLocation = Path.GetFullPath(Path.Combine(root, "docker-fragments"));
-			var cryptoDefinitionsLocation = Path.GetFullPath(Path.Combine(root, "crypto-definitions.json"));
-			var cryptoDefinitions =
-				JsonSerializer.Deserialize<CryptoDefinition[]>(File.ReadAllText(cryptoDefinitionsLocation));
 			var fragments = new HashSet<string>();
 			switch (composition.SelectedProxy)
 			{
@@ -60,35 +56,25 @@ namespace DockerGenerator
 					break;
 			}
 			fragments.Add("anvil");
-			
-			bool hasAltcoins = false;
-			foreach (var crypto in cryptoDefinitions)
-			{
-				if (!composition.SelectedCryptos.Contains(crypto.Crypto))
-					continue;
 
-				fragments.Add(crypto.CryptoFragment);
-				if (crypto.CryptoFragment != "bitcoin")
-					hasAltcoins = true;
+			if (composition.WithFullNode === "true") {
+				fragments.Add("bitcoin");
 
-				if (composition.SelectedLN == "clightning" && crypto.CLightningFragment != null)
+				switch (composition.SelectedLN)
 				{
-					fragments.Add(crypto.CLightningFragment);
-				}
-				if (composition.SelectedLN == "lnd" && crypto.LNDFragment != null)
-				{
-					fragments.Add(crypto.LNDFragment);
-				}
-				if (composition.SelectedLN == "eclair" && crypto.EclairFragment != null)
-				{
-					fragments.Add(crypto.EclairFragment);
+					case "clightning":
+						fragments.Add("bitcoin-clightning");
+						break;
+					case "eclair":
+						fragments.Add("bitcoin-eclair");
+						break;
+					default:
+						fragments.Add("bitcoin-lnd");
+						break;
 				}
 			}
 
-			if (hasAltcoins)
-				Environment.SetEnvironmentVariable("BTCPAY_BUILD_CONFIGURATION", "-altcoins");
-			else
-				Environment.SetEnvironmentVariable("BTCPAY_BUILD_CONFIGURATION", "");
+			Environment.SetEnvironmentVariable("BTCPAY_BUILD_CONFIGURATION", "");
 
 			foreach (var fragment in composition.AdditionalFragments)
 			{

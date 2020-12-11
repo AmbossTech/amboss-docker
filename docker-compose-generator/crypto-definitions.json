@@ -1,9 +1,0 @@
-[
-  {
-    "Crypto": "btc",
-    "CryptoFragment": "bitcoin",
-    "CLightningFragment": "bitcoin-clightning",
-    "LNDFragment": "bitcoin-lnd",
-    "EclairFragment": "bitcoin-eclair"
-  }
-]
