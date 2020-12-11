@@ -7,7 +7,7 @@ namespace DockerGenerator
 {
 	public class DockerComposition
 	{
-		public HashSet<string> SelectedCryptos
+		public string WithFullNode
 		{
 			get;
 			set;
@@ -36,6 +36,7 @@ namespace DockerGenerator
 		public static DockerComposition FromEnvironmentVariables()
 		{
 			DockerComposition composition = new DockerComposition();
+			composition.WithFullNode = (Environment.GetEnvironmentVariable("BTCPAYGEN_FULLNODE") ?? "").ToLowerInvariant();
 			composition.SelectedCryptos = new HashSet<string>();
 			for(int i = 1; i < 10; i++)
 			{

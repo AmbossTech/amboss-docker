@@ -32,7 +32,6 @@ volumes:
 
 required:
   - "postgres"
-  - "nbxplorer"
   - "btcpayserver"
 recommended:
   - "opt-add-tor"

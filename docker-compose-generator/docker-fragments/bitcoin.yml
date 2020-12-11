@@ -34,3 +34,6 @@ services:
 volumes:
   bitcoin_datadir:
   bitcoin_wallet_datadir:
+
+required:
+  - "nbxplorer"

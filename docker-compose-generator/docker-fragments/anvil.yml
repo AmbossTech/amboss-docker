@@ -44,7 +44,6 @@ services:
 required:
   - "postgres"
   - "redis"
-  - "nbxplorer" # Should be cleaned up later
   - "anvil"
 recommended:
   - "opt-add-tor"

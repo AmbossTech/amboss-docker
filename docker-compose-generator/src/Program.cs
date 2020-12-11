@@ -16,6 +16,8 @@ namespace DockerGenerator
 				: Path.GetFullPath(Path.Combine(FindRoot("docker-compose-generator"), ".."));
 
 			var composition = DockerComposition.FromEnvironmentVariables();
+			
+			Console.WriteLine("WithFullNode: " + composition.WithFullNode);
 			Console.WriteLine("Crypto: " + string.Join(", ", composition.SelectedCryptos.ToArray()));
 			Console.WriteLine("Lightning: " + composition.SelectedLN);
 			Console.WriteLine("ReverseProxy: " + composition.SelectedProxy);
