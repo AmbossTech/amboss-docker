@@ -1,16 +1,15 @@
 version: "3"
 
 services:
-
-  anvil-web:
+  amboss-web:
     environment:
       # NGINX settings
       VIRTUAL_NETWORK: nginx-proxy
       VIRTUAL_PORT: 3000
-      VIRTUAL_HOST: ${BTCPAY_HOST},${BTCPAY_ADDITIONAL_HOSTS}
-      VIRTUAL_HOST_NAME: "btcpay"
+      VIRTUAL_HOST: ${AMBOSS_HOST}
+      VIRTUAL_HOST_NAME: "amboss"
       SSL_POLICY: Mozilla-Modern
 
       # Let's encrypt settings
-      LETSENCRYPT_HOST: ${BTCPAY_HOST},${BTCPAY_ADDITIONAL_HOSTS}
+      LETSENCRYPT_HOST: ${AMBOSS_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:-<no value>}

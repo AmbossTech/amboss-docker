@@ -22,7 +22,7 @@ namespace DockerGenerator
 			Console.WriteLine("ReverseProxy: " + composition.SelectedProxy);
 			var generatedLocation = Path.GetFullPath(Path.Combine(root, "Generated"));
 
-			var name = Environment.GetEnvironmentVariable("BTCPAYGEN_SUBNAME");
+			var name = Environment.GetEnvironmentVariable("AMBOSSGEN_SUBNAME");
 			name = string.IsNullOrEmpty(name) ? "generated" : name;
 			try
 			{
@@ -49,13 +49,8 @@ namespace DockerGenerator
 				case "traefik":
 					fragments.Add("traefik");
 					break;
-				case "no-reverseproxy":
-				case "none":
-				case "":
-					fragments.Add("btcpayserver-noreverseproxy");
-					break;
 			}
-			fragments.Add("anvil");
+			fragments.Add("amboss");
 
 			if (composition.WithFullNode == "true") {
 				fragments.Add("bitcoin");

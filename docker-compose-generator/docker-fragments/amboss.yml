@@ -1,10 +1,9 @@
 version: "3"
 
 services:
-
-  anvil-event:
-    container_name: anvil-event
-    image: "amboss/anvil-event:latest"
+  amboss-event:
+    container_name: amboss-event
+    image: "amboss/amboss-event:latest"
     restart: unless-stopped
     environment:
       NODE_ENV: "production"
@@ -12,14 +11,17 @@ services:
       - postgres
       - redis
 
-  anvil-server:
-    container_name: anvil-server
-    image: "amboss/anvil-server:latest"
+  amboss-server:
+    container_name: amboss-server
+    image: "amboss/amboss-server:latest"
     restart: unless-stopped
     environment:
       POSTGRES_URL: "postgres"
       NODE_ENV: "production"
-    volumes: 
+      AMBOSS_HOST: ${AMBOSS_PROTOCOL:-https}://${AMBOSS_HOST}
+      REDIS_HOST: "redis"
+      POSTGRES_HOST: "postgres"
+    volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - "4000:4000"
@@ -27,23 +29,22 @@ services:
       - postgres
       - redis
 
-  anvil-web:
-    container_name: anvil-web
-    image: "amboss/anvil-web:latest"
+  amboss-web:
+    container_name: amboss-web
+    image: "amboss/amboss-web:latest"
     restart: unless-stopped
     environment:
       NODE_ENV: "production"
-      SERVER_SSR_URL: "http://anvil-server:4000/graphql"
-      SERVER_URL: "/graphql"
-      WS_URL: "ws://localhost:4000/graphql"
+      SERVER_SSR_URL: "http://amboss-server:4000/graphql"
+      SERVER_PATH: "/graphql"
     ports:
       - "3000:3000"
     depends_on:
-      - anvil-server
+      - amboss-server
 
 required:
   - "postgres"
   - "redis"
-  - "anvil"
+  - "amboss"
 recommended:
   - "opt-add-tor"

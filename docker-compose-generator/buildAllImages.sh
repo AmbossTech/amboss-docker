@@ -11,8 +11,8 @@ echo "------------------------------------------"
 echo
 echo
 
-git checkout master || exit
-git pull || exit
+# git checkout master || exit
+# git pull || exit
 
 START=`date +%s`
 

@@ -1,38 +1,29 @@
 # This script will run docker-compose-generator in a container to generate the yml files
 
-If (-not ($BTCPAYGEN_DOCKER_IMAGE)) { $BTCPAYGEN_DOCKER_IMAGE = "amboss/docker-compose-generator" }
+If (-not ($AMBOSSGEN_DOCKER_IMAGE)) { $AMBOSSGEN_DOCKER_IMAGE = "amboss/docker-compose-generator" }
 
-If ($BTCPAYGEN_DOCKER_IMAGE -eq "amboss/docker-compose-generator:local"){
-	docker build docker-compose-generator -f docker-compose-generator/linuxamd64.Dockerfile --tag $BTCPAYGEN_DOCKER_IMAGE
+If ($AMBOSSGEN_DOCKER_IMAGE -eq "amboss/docker-compose-generator:local"){
+	docker build docker-compose-generator -f docker-compose-generator/linuxamd64.Dockerfile --tag $AMBOSSGEN_DOCKER_IMAGE
 } Else {
-	docker pull $BTCPAYGEN_DOCKER_IMAGE
+	docker pull $AMBOSSGEN_DOCKER_IMAGE
 }
 
 docker run -v "$(Get-Location)\Generated:/app/Generated" `
            -v "$(Get-Location)\docker-compose-generator\docker-fragments:/app/docker-fragments" `
-           -e "BTCPAYGEN_CRYPTO1=$BTCPAYGEN_CRYPTO1" `
-           -e "BTCPAYGEN_CRYPTO2=$BTCPAYGEN_CRYPTO2" `
-           -e "BTCPAYGEN_CRYPTO3=$BTCPAYGEN_CRYPTO3" `
-           -e "BTCPAYGEN_CRYPTO4=$BTCPAYGEN_CRYPTO4" `
-           -e "BTCPAYGEN_CRYPTO5=$BTCPAYGEN_CRYPTO5" `
-           -e "BTCPAYGEN_CRYPTO6=$BTCPAYGEN_CRYPTO6" `
-           -e "BTCPAYGEN_CRYPTO7=$BTCPAYGEN_CRYPTO7" `
-           -e "BTCPAYGEN_CRYPTO8=$BTCPAYGEN_CRYPTO8" `
-           -e "BTCPAYGEN_CRYPTO9=$BTCPAYGEN_CRYPTO9" `
-           -e "ANVIL_FULLNODE=$ANVIL_FULLNODE" `
-           -e "BTCPAYGEN_REVERSEPROXY=$BTCPAYGEN_REVERSEPROXY" `
-           -e "BTCPAYGEN_ADDITIONAL_FRAGMENTS=$BTCPAYGEN_ADDITIONAL_FRAGMENTS" `
-           -e "BTCPAYGEN_EXCLUDE_FRAGMENTS=$BTCPAYGEN_EXCLUDE_FRAGMENTS" `
-           -e "BTCPAYGEN_LIGHTNING=$BTCPAYGEN_LIGHTNING" `
-           -e "BTCPAYGEN_SUBNAME=$BTCPAYGEN_SUBNAME" `
-           -e "BTCPAY_HOST_SSHAUTHORIZEDKEYS=$BTCPAY_HOST_SSHAUTHORIZEDKEYS" `
-           --rm $BTCPAYGEN_DOCKER_IMAGE
+           -e "AMBOSS_FULLNODE=$AMBOSS_FULLNODE" `
+           -e "AMBOSSGEN_REVERSEPROXY=$AMBOSSGEN_REVERSEPROXY" `
+           -e "AMBOSSGEN_ADDITIONAL_FRAGMENTS=$AMBOSSGEN_ADDITIONAL_FRAGMENTS" `
+           -e "AMBOSSGEN_EXCLUDE_FRAGMENTS=$AMBOSSGEN_EXCLUDE_FRAGMENTS" `
+           -e "AMBOSSGEN_LIGHTNING=$AMBOSSGEN_LIGHTNING" `
+           -e "AMBOSSGEN_SUBNAME=$AMBOSSGEN_SUBNAME" `
+           -e "AMBOSS_HOST_SSHAUTHORIZEDKEYS=$AMBOSS_HOST_SSHAUTHORIZEDKEYS" `
+           --rm $AMBOSSGEN_DOCKER_IMAGE
 
-If ($BTCPAYGEN_REVERSEPROXY -eq "nginx") {
+If ($AMBOSSGEN_REVERSEPROXY -eq "nginx") {
     Copy-Item ".\Production\nginx.tmpl" -Destination ".\Generated"
 }
 
-If ($BTCPAYGEN_REVERSEPROXY -eq "traefik") {
+If ($AMBOSSGEN_REVERSEPROXY -eq "traefik") {
     Copy-Item ".\Traefik\traefik.toml" -Destination ".\Generated"
     
     New-Item  ".\Generated\acme.json" -type file

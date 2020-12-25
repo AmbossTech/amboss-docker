@@ -3,13 +3,13 @@ version: "3"
 services:
   clightning_bitcoin:
     image: btcpayserver/lightning:v0.9.1
-    container_name: btcpayserver_clightning_bitcoin
+    container_name: amboss_clightning_bitcoin
     restart: unless-stopped
     environment:
       LIGHTNINGD_NETWORK: ${NBITCOIN_NETWORK:-regtest}
       LIGHTNINGD_CHAIN: btc
       LIGHTNINGD_ALIAS: ${LIGHTNING_ALIAS}
-      LIGHTNINGD_ANNOUNCEADDR: ${BTCPAY_ANNOUNCEABLE_HOST}
+      LIGHTNINGD_ANNOUNCEADDR: ${AMBOSS_ANNOUNCEABLE_HOST}
       LIGHTNINGD_PORT: 9735
       LIGHTNINGD_READY_FILE: /root/.nbxplorer/btc_fully_synched
       LIGHTNINGD_OPT: |
@@ -29,7 +29,7 @@ services:
     environment:
       NETWORK: ${NBITCOIN_NETWORK:-regtest}
       COOKIE_FILE: /data/.cookie
-      URL: ${BTCPAY_ROOTPATH:-/}lightning-charge/btc/
+      URL: ${AMBOSS_ROOTPATH:-/}lightning-charge/btc/
     volumes:
       - "clightning_bitcoin_datadir:/etc/lightning"
       - "clightning_bitcoin_charge:/data"
@@ -89,21 +89,6 @@ services:
     expose:
       - "3000"
 
-  btcpayserver:
-    environment:
-      BTCPAY_BTCLIGHTNING: "type=clightning;server=unix://etc/clightning_bitcoin/lightning-rpc"
-      BTCPAY_BTCEXTERNALSPARK: "server=/spark/btc/;cookiefile=/etc/clightning_bitcoin_spark/.cookie"
-      BTCPAY_BTCEXTERNALCHARGE: "server=/lightning-charge/btc/;cookiefilepath=/etc/clightning_bitcoin_charge/.cookie"
-      BTCPAY_BTCEXTERNALRTL: "server=/rtl/api/authenticate/cookie;cookiefile=/etc/clightning_bitcoin_rtl/.cookie"
-      BTCPAY_BTCEXTERNALCLIGHTNINGREST: "server=/clightning-rest/btc;macaroonfilepath=/etc/clightning_bitcoin_rest/certs/access.macaroon;macaroondirectorypath=/etc/clightning_bitcoin_rest/certs"
-    volumes:
-      - "clightning_bitcoin_datadir:/etc/clightning_bitcoin"
-      - "clightning_bitcoin_spark:/etc/clightning_bitcoin_spark"
-      - "clightning_bitcoin_charge:/etc/clightning_bitcoin_charge"
-      - "clightning_bitcoin_rtl_datadir:/etc/clightning_bitcoin_rtl"
-      - "clightning_bitcoin_rest_datadir:/etc/clightning_bitcoin_rest"
-    links:
-      - clightning_bitcoin
 volumes:
   clightning_bitcoin_datadir:
   clightning_bitcoin_spark:

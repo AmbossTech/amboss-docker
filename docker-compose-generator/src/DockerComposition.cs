@@ -36,15 +36,15 @@ namespace DockerGenerator
 		public static DockerComposition FromEnvironmentVariables()
 		{
 			DockerComposition composition = new DockerComposition();
-			composition.WithFullNode = (Environment.GetEnvironmentVariable("ANVIL_FULLNODE") ?? "").ToLowerInvariant();
-			composition.SelectedProxy = (Environment.GetEnvironmentVariable("BTCPAYGEN_REVERSEPROXY") ?? "").ToLowerInvariant();
-			composition.SelectedLN = (Environment.GetEnvironmentVariable("BTCPAYGEN_LIGHTNING") ?? "").ToLowerInvariant();
-			composition.AdditionalFragments = (Environment.GetEnvironmentVariable("BTCPAYGEN_ADDITIONAL_FRAGMENTS") ?? "").ToLowerInvariant()
+			composition.WithFullNode = (Environment.GetEnvironmentVariable("AMBOSS_FULLNODE") ?? "").ToLowerInvariant();
+			composition.SelectedProxy = (Environment.GetEnvironmentVariable("AMBOSSGEN_REVERSEPROXY") ?? "").ToLowerInvariant();
+			composition.SelectedLN = (Environment.GetEnvironmentVariable("AMBOSSGEN_LIGHTNING") ?? "").ToLowerInvariant();
+			composition.AdditionalFragments = (Environment.GetEnvironmentVariable("AMBOSSGEN_ADDITIONAL_FRAGMENTS") ?? "").ToLowerInvariant()
 												.Split(new char[] { ';' , ',' })
 												.Where(t => !string.IsNullOrWhiteSpace(t))
 												.Select(t => t.EndsWith(".yml") ? t.Substring(0, t.Length - ".yml".Length) : t)
 												.ToArray();
-			composition.ExcludeFragments = (Environment.GetEnvironmentVariable("BTCPAYGEN_EXCLUDE_FRAGMENTS") ?? "").ToLowerInvariant()
+			composition.ExcludeFragments = (Environment.GetEnvironmentVariable("AMBOSSGEN_EXCLUDE_FRAGMENTS") ?? "").ToLowerInvariant()
 												.Split(new char[] { ';' , ',' })
 												.Where(t => !string.IsNullOrWhiteSpace(t))
 												.Select(t => t.EndsWith(".yml") ? t.Substring(0, t.Length - ".yml".Length) : t)
