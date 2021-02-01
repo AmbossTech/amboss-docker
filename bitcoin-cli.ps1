@@ -1,1 +1,1 @@
-docker exec btcpayserver_bitcoind bitcoin-cli -datadir="/data" $args
+docker exec amboss_bitcoind bitcoin-cli -datadir="/data" $args

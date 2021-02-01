@@ -22,7 +22,7 @@
 {{ end }}
 
 {{ define "redirects" }}
-	{{ if eq $.HostName "btcpay" }}
+	{{ if eq $.HostName "amboss" }}
 	{{ range $container := $.Containers }}
 		{{ $serviceName := (index $container.Labels "com.docker.compose.service") }}
 		{{ if (eq $serviceName "lnd_bitcoin") }}
@@ -34,29 +34,9 @@
 		proxy_pass http://lnd_bitcoin:8080/;
 	}
 		{{ end }}
-		{{ if (eq $serviceName "bitcoin_rtl") }}
-	location /rtl/ {
-		proxy_pass http://bitcoin_rtl:3000/rtl/;
-	}
-		{{ end }}
-		{{ if (eq $serviceName "anvil-server") }}
+		{{ if (eq $serviceName "amboss-server") }}
 	location /graphql {
-		proxy_pass http://anvil-server:4000/graphql;
-	}
-		{{ end }}
-		{{ if (eq $serviceName "bitcoin_thub") }}
-	location /thub/ {
-		rewrite ^/thub(.*)$ $1 break;
-		proxy_pass http://bitcoin_thub:3000/;
-	}
-		{{ end }}
-		{{ if (eq $serviceName "btcqbo") }}
-	location /btcqbo/ {
-		proxy_pass http://btcqbo:8001;
-		proxy_redirect off;
-		proxy_set_header Host $host;
-		proxy_set_header X-Real-IP $remote_addr;
-		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_pass http://amboss-server:4000/graphql;
 	}
 		{{ end }}
 		{{ if (eq $serviceName "clightning_bitcoin_spark") }}
@@ -75,61 +55,9 @@
 		proxy_pass http://clightning_bitcoin_rest:3001/;
 	}
 		{{ end }}
-		{{ if (eq $serviceName "clightning_groestlcoin_spark") }}
-	location /spark/grs/ {
-		proxy_pass http://clightning_groestlcoin_spark:9739/;
-	}
-		{{ end }}
-		{{ if (eq $serviceName "clightning_groestlcoin_charge") }}
-	location /lightning-charge/grs/ {
-		proxy_pass http://clightning_groestlcoin_charge:9112/;
-	}
-		{{ end }}
-		
-		{{ if (eq $serviceName "btctransmuter") }}
-	location /btctransmuter/ {
-		proxy_set_header Connection "";
-		proxy_set_header        Host               $host;
-        proxy_set_header        X-Real-IP          $remote_addr;
-        proxy_set_header        X-Forwarded-For    $proxy_add_x_forwarded_for;
-        proxy_set_header        X-Forwarded-Host   $host:443;
-        proxy_set_header        X-Forwarded-Server $host;
-        proxy_set_header        X-Forwarded-Port   443;
-        proxy_set_header        X-Forwarded-Proto  https;
-		proxy_pass http://btctransmuter;
-	}
-		{{ end }}
-		
-		{{ if (eq $serviceName "configurator") }}
-	location /configurator/ {
-		proxy_set_header Connection "";
-		proxy_set_header        Host               $host;
-        proxy_set_header        X-Real-IP          $remote_addr;
-        proxy_set_header        X-Forwarded-For    $proxy_add_x_forwarded_for;
-        proxy_set_header        X-Forwarded-Host   $host:443;
-        proxy_set_header        X-Forwarded-Server $host;
-        proxy_set_header        X-Forwarded-Port   443;
-        proxy_set_header        X-Forwarded-Proto  https;
-		proxy_pass http://configurator;
-	}
-		{{ end }}
 	{{ end }}
 	{{ end }}
 
-	{{ if eq $.HostName "librepatron" }}
-	{{ range $container := $.Containers }}
-		{{ $serviceName := (index $container.Labels "com.docker.compose.service") }}
-		{{ if (eq $serviceName "isso") }}
-	location /isso {
-		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-		proxy_set_header X-Script-Name /isso;
-		proxy_set_header Host $host;
-		proxy_set_header X-Forwarded-Proto $scheme;
-		proxy_pass http://isso:8080;
-	}
-		{{ end }}
-	{{ end }}
-	{{ end }}
 {{ end }}
 
 # If we receive X-Forwarded-Proto, pass it through; otherwise, pass along the

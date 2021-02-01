@@ -286,11 +286,6 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
-/BTCPayServer/Build/dockerfiles
-
-# Bundling JS/CSS
-BTCPayServer/wwwroot/bundles/*
-!BTCPayServer/wwwroot/bundles/.gitignore
 
 Production/.env
 .env

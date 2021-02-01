@@ -1,1 +1,1 @@
-docker exec btcpayserver_clightning_bitcoin lightning-cli $args
+docker exec amboss_clightning_bitcoin lightning-cli $args

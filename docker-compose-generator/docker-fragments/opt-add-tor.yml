@@ -1,45 +1,22 @@
-# This will expose BTCPayServer, Woocommerce, your lightning nodes as hidden services and accept onion peers for your full node.
+# This will expose Amboss, your lightning nodes as hidden services and accept onion peers for your full node.
 # Warning: This options is for working around NAT and firewall problems as well as to help protect your customer's privacy.
 # This will not protect your privacy against a targeted attack against your own privacy.
 # All outbound traffic is not channeled through the TOR SOCKS proxy
 version: "3"
 
 services:
-
-  btcpayserver:
+  amboss-server:
     environment:
-      HIDDENSERVICE_NAME: BTCPayServer
-      HIDDENSERVICE_REVERSEPROXY: nginx
-      BTCPAY_TORRCFILE: /usr/local/etc/tor/torrc-2
-      BTCPAY_SOCKSENDPOINT: tor:9050
+      AMBOSS_TORRCFILE: /usr/local/etc/tor/torrc-2
+      AMBOSS_SOCKSENDPOINT: socks://tor:9050
     volumes:
       - "tor_servicesdir:/var/lib/tor/hidden_services"
       - "tor_torrcdir:/usr/local/etc/tor/"
 
-  btctransmuter:
+  amboss-web:
     environment:
-      HIDDENSERVICE_NAME: BTCTransmuter
+      HIDDENSERVICE_NAME: Amboss
       HIDDENSERVICE_REVERSEPROXY: nginx
-      TRANSMUTER_TORRCFILE: /usr/local/etc/tor/torrc-2
-      TRANSMUTER_SOCKSENDPOINT: tor:9050
-    volumes:
-      - "tor_servicesdir:/var/lib/tor/hidden_services"
-      - "tor_torrcdir:/usr/local/etc/tor/"
-
-  configurator:
-    environment:
-      HIDDENSERVICE_NAME: Configurator
-      HIDDENSERVICE_REVERSEPROXY: nginx
-    volumes:
-      - "tor_servicesdir:/var/lib/tor/hidden_services"
-      - "tor_torrcdir:/usr/local/etc/tor/"
-
-  woocommerce:
-    environment:
-      HIDDENSERVICE_NAME: WooCommerce
-      WOOCOMMERCE_HIDDENSERVICE_HOSTNAME_FILE: /var/lib/tor/hidden_services/WooCommerce/hostname
-    volumes:
-      - "tor_servicesdir:/var/lib/tor/hidden_services"
 
   bitcoind:
     environment:
@@ -77,8 +54,8 @@ services:
       TOR_EXTRA_ARGS: |
         CookieAuthentication 1
     expose:
-      - "9050"  # SOCKS
-      - "9051"  # Tor Control
+      - "9050" # SOCKS
+      - "9051" # Tor Control
     volumes:
       - "tor_datadir:/home/tor/.tor"
       - "tor_torrcdir:/usr/local/etc/tor"
@@ -95,21 +72,10 @@ services:
       - "tor_servicesdir:/var/lib/tor/hidden_services"
     links:
       - tor
-  clightning_litecoin:
-    environment:
-      HIDDENSERVICE_NAME: c-lightning-ltc
-      HIDDENSERVICE_PORT: 9736
-      LIGHTNINGD_HIDDENSERVICE_HOSTNAME_FILE: /var/lib/tor/hidden_services/c-lightning-ltc/hostname
-      LIGHTNINGD_OPT: |
-        proxy=tor:9050
-    volumes:
-      - "tor_servicesdir:/var/lib/tor/hidden_services"
-    links:
-      - tor
 
   tor-gen:
     restart: unless-stopped
-    image: btcpayserver/docker-gen:0.7.7
+    image: btcpayserver/docker-gen:0.7.8
     container_name: tor-gen
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
@@ -133,39 +99,6 @@ services:
       - "tor_datadir:/home/tor/.tor"
       - "tor_servicesdir:/var/lib/tor/hidden_services"
 
-  lnd_litecoin:
-    environment:
-      HIDDENSERVICE_NAME: lnd-ltc
-      HIDDENSERVICE_PORT: 9736
-      LND_HIDDENSERVICE_HOSTNAME_FILE: /var/lib/tor/hidden_services/lnd-ltc/hostname
-      LND_EXTRA_ARGS: |
-        tor.active=1
-        tor.socks=tor:9050
-    links:
-      - tor
-    volumes:
-      - "tor_datadir:/home/tor/.tor"
-      - "tor_servicesdir:/var/lib/tor/hidden_services"
-
-  electrum_ps:
-    environment:
-      HIDDENSERVICE_NAME: btc-electrum-ps
-      HIDDENSERVICE_PORT: 50002
-      HIDDENSERVICE_VIRTUAL_PORT: 50002
-
-  electrumx:
-    environment:
-      HIDDENSERVICE_NAME: electrumx
-      HIDDENSERVICE_PORT: 50002
-      HIDDENSERVICE_VIRTUAL_PORT: 50002
-
-  bitcoin_teos:
-    environment:
-      HIDDENSERVICE_NAME: teos
-      HIDDENSERVICE_PORT: 9814
-    volumes:
-      - "tor_servicesdir:/var/lib/tor/hidden_services"
-      - "tor_torrcdir:/usr/local/etc/tor/"
 volumes:
   tor_datadir:
   tor_torrcdir:
