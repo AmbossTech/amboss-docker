@@ -52,23 +52,6 @@ namespace DockerGenerator
 			}
 			fragments.Add("amboss");
 
-			if (composition.WithFullNode == "true") {
-				fragments.Add("bitcoin");
-
-				switch (composition.SelectedLN)
-				{
-					case "clightning":
-						fragments.Add("bitcoin-clightning");
-						break;
-					case "eclair":
-						fragments.Add("bitcoin-eclair");
-						break;
-					default:
-						fragments.Add("bitcoin-lnd");
-						break;
-				}
-			}
-
 			Environment.SetEnvironmentVariable("BTCPAY_BUILD_CONFIGURATION", "");
 
 			foreach (var fragment in composition.AdditionalFragments)

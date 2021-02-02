@@ -85,10 +85,7 @@ Environment variables:
     REVERSEPROXY_HTTPS_PORT: The port the reverse proxy binds to for public HTTPS requests. Default: 443
     REVERSEPROXY_DEFAULT_HOST: Optional, if using a reverse proxy nginx, specify which website should be presented if the server is accessed by its IP.
     LETSENCRYPT_EMAIL: A mail will be sent to this address if certificate expires and fail to renew automatically (eg. me@example.com)
-    NBITCOIN_NETWORK: The type of network to use (eg. mainnet, testnet or regtest. Default: mainnet)
-    LIGHTNING_ALIAS: An alias for your lightning network node if used
     AMBOSSGEN_REVERSEPROXY: Whether to use or not a reverse proxy. NGinx setup HTTPS for you. (eg. nginx, traefik, none. Default: nginx)
-    AMBOSSGEN_LIGHTNING: Lightning network implementation to use (eg. clightning, lnd)
     AMBOSSGEN_ADDITIONAL_FRAGMENTS: Semi colon separated list of additional fragments you want to use (eg. opt-save-storage)
     ACME_CA_URI: The API endpoint to ask for HTTPS certificate (default: production)
     AMBOSS_ENABLE_SSH: Optional, gives Amboss SSH access to the host by allowing it to edit authorized_keys of the host, it can be used for managing the authorized_keys or updating Amboss directly through the website. (Default: false)
@@ -151,10 +148,7 @@ fi
 [[ $LETSENCRYPT_EMAIL == *@example.com ]] && echo "LETSENCRYPT_EMAIL ends with @example.com, setting to empty email instead" && LETSENCRYPT_EMAIL=""
 
 : "${LETSENCRYPT_EMAIL:=}"
-: "${AMBOSS_FULLNODE:=false}"
-: "${NBITCOIN_NETWORK:=mainnet}"
 : "${AMBOSSGEN_REVERSEPROXY:=nginx}"
-: "${AMBOSSGEN_LIGHTNING:=lnd}"
 : "${REVERSEPROXY_DEFAULT_HOST:=none}"
 : "${ACME_CA_URI:=production}"
 : "${AMBOSS_PROTOCOL:=https}"
@@ -224,7 +218,6 @@ cd "$ORIGINAL_DIRECTORY"
 echo "
 -------SETUP-----------
 Parameters passed:
-AMBOSS_FULLNODE:$AMBOSS_FULLNODE
 AMBOSS_PROTOCOL:$AMBOSS_PROTOCOL
 AMBOSS_HOST:$AMBOSS_HOST
 REVERSEPROXY_HTTP_PORT:$REVERSEPROXY_HTTP_PORT
@@ -233,10 +226,7 @@ REVERSEPROXY_DEFAULT_HOST:$REVERSEPROXY_DEFAULT_HOST
 AMBOSS_ENABLE_SSH:$AMBOSS_ENABLE_SSH
 AMBOSS_HOST_SSHKEYFILE:$AMBOSS_HOST_SSHKEYFILE
 LETSENCRYPT_EMAIL:$LETSENCRYPT_EMAIL
-NBITCOIN_NETWORK:$NBITCOIN_NETWORK
-LIGHTNING_ALIAS:$LIGHTNING_ALIAS
 AMBOSSGEN_REVERSEPROXY:$AMBOSSGEN_REVERSEPROXY
-AMBOSSGEN_LIGHTNING:$AMBOSSGEN_LIGHTNING
 AMBOSSGEN_ADDITIONAL_FRAGMENTS:$AMBOSSGEN_ADDITIONAL_FRAGMENTS
 AMBOSSGEN_EXCLUDE_FRAGMENTS:$AMBOSSGEN_EXCLUDE_FRAGMENTS
 AMBOSS_IMAGE:$AMBOSS_IMAGE
@@ -255,19 +245,11 @@ AMBOSS_ANNOUNCEABLE_HOST:$AMBOSS_ANNOUNCEABLE_HOST
 ----------------------
 "
 
-if [[ "$NBITCOIN_NETWORK" != "mainnet" ]] && [[ "$NBITCOIN_NETWORK" != "testnet" ]] && [[ "$NBITCOIN_NETWORK" != "regtest" ]]; then
-    echo "NBITCOIN_NETWORK should be equal to mainnet, testnet or regtest"
-fi
-
-
-
 # Init the variables when a user log interactively
 touch "$BASH_PROFILE_SCRIPT"
 echo "
 #!/bin/bash
 export COMPOSE_HTTP_TIMEOUT=\"180\"
-export AMBOSS_FULLNODE=\"$AMBOSS_FULLNODE\"
-export AMBOSSGEN_LIGHTNING=\"$AMBOSSGEN_LIGHTNING\"
 export AMBOSSGEN_REVERSEPROXY=\"$AMBOSSGEN_REVERSEPROXY\"
 export AMBOSSGEN_ADDITIONAL_FRAGMENTS=\"$AMBOSSGEN_ADDITIONAL_FRAGMENTS\"
 export AMBOSSGEN_EXCLUDE_FRAGMENTS=\"$AMBOSSGEN_EXCLUDE_FRAGMENTS\"

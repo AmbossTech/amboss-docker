@@ -7,17 +7,7 @@ namespace DockerGenerator
 {
 	public class DockerComposition
 	{
-		public string WithFullNode
-		{
-			get;
-			set;
-		}
 		public string SelectedProxy
-		{
-			get;
-			set;
-		}
-		public string SelectedLN
 		{
 			get;
 			set;
@@ -36,9 +26,7 @@ namespace DockerGenerator
 		public static DockerComposition FromEnvironmentVariables()
 		{
 			DockerComposition composition = new DockerComposition();
-			composition.WithFullNode = (Environment.GetEnvironmentVariable("AMBOSS_FULLNODE") ?? "").ToLowerInvariant();
 			composition.SelectedProxy = (Environment.GetEnvironmentVariable("AMBOSSGEN_REVERSEPROXY") ?? "").ToLowerInvariant();
-			composition.SelectedLN = (Environment.GetEnvironmentVariable("AMBOSSGEN_LIGHTNING") ?? "").ToLowerInvariant();
 			composition.AdditionalFragments = (Environment.GetEnvironmentVariable("AMBOSSGEN_ADDITIONAL_FRAGMENTS") ?? "").ToLowerInvariant()
 												.Split(new char[] { ';' , ',' })
 												.Where(t => !string.IsNullOrWhiteSpace(t))

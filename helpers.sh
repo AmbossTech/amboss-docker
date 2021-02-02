@@ -1,8 +1,5 @@
 install_tooling() {
     scripts=( \
-                "amboss_bitcoind" "bitcoin-cli.sh" "Command line for your Bitcoin instance" \
-                "amboss_clightning_bitcoin" "bitcoin-lightning-cli.sh" "Command line for your Bitcoin C-Lightning instance" \
-                "amboss_lnd_bitcoin" "bitcoin-lncli.sh" "Command line for your Bitcoin LND instance" \
                 "*" "amboss-down.sh" "Command line for stopping all services related to Amboss" \
                 "*" "amboss-restart.sh" "Command line for restarting all services related to Amboss" \
                 "*" "amboss-setup.sh" "Command line for restarting all services related to Amboss" \
@@ -52,9 +49,7 @@ REVERSEPROXY_HTTPS_PORT=$REVERSEPROXY_HTTPS_PORT
 REVERSEPROXY_DEFAULT_HOST=$REVERSEPROXY_DEFAULT_HOST
 AMBOSS_IMAGE=$AMBOSS_IMAGE
 ACME_CA_URI=$ACME_CA_URI
-NBITCOIN_NETWORK=$NBITCOIN_NETWORK
 LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL
-LIGHTNING_ALIAS=$LIGHTNING_ALIAS
 AMBOSS_SSHTRUSTEDFINGERPRINTS=$AMBOSS_SSHTRUSTEDFINGERPRINTS
 AMBOSS_SSHKEYFILE=$AMBOSS_SSHKEYFILE
 AMBOSS_SSHAUTHORIZEDKEYS=$AMBOSS_SSHAUTHORIZEDKEYS

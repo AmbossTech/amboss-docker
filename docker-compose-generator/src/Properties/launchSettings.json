@@ -4,7 +4,6 @@
       "commandName": "Project",
       "commandLineArgs": "pregen",
       "environmentVariables": {
-        "AMBOSSGEN_LIGHTNING": "clightning",
         "AMBOSSGEN_ADDITIONAL_FRAGMENTS": "opt-save-storage",
         "AMBOSSGEN_REVERSEPROXY": "nginx"
       }

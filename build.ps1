@@ -10,11 +10,9 @@ If ($AMBOSSGEN_DOCKER_IMAGE -eq "amboss/docker-compose-generator:local"){
 
 docker run -v "$(Get-Location)\Generated:/app/Generated" `
            -v "$(Get-Location)\docker-compose-generator\docker-fragments:/app/docker-fragments" `
-           -e "AMBOSS_FULLNODE=$AMBOSS_FULLNODE" `
            -e "AMBOSSGEN_REVERSEPROXY=$AMBOSSGEN_REVERSEPROXY" `
            -e "AMBOSSGEN_ADDITIONAL_FRAGMENTS=$AMBOSSGEN_ADDITIONAL_FRAGMENTS" `
            -e "AMBOSSGEN_EXCLUDE_FRAGMENTS=$AMBOSSGEN_EXCLUDE_FRAGMENTS" `
-           -e "AMBOSSGEN_LIGHTNING=$AMBOSSGEN_LIGHTNING" `
            -e "AMBOSSGEN_SUBNAME=$AMBOSSGEN_SUBNAME" `
            -e "AMBOSS_HOST_SSHAUTHORIZEDKEYS=$AMBOSS_HOST_SSHAUTHORIZEDKEYS" `
            --rm $AMBOSSGEN_DOCKER_IMAGE

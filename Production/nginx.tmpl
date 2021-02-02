@@ -25,34 +25,9 @@
 	{{ if eq $.HostName "amboss" }}
 	{{ range $container := $.Containers }}
 		{{ $serviceName := (index $container.Labels "com.docker.compose.service") }}
-		{{ if (eq $serviceName "lnd_bitcoin") }}
-	location /lnrpc {
-		grpc_pass grpcs://lnd_bitcoin:10009;
-	}
-	location /lnd-rest/btc/ {
-		rewrite ^/lnd-rest/btc/(.*) /$1 break;
-		proxy_pass http://lnd_bitcoin:8080/;
-	}
-		{{ end }}
 		{{ if (eq $serviceName "amboss-server") }}
 	location /graphql {
 		proxy_pass http://amboss-server:4000/graphql;
-	}
-		{{ end }}
-		{{ if (eq $serviceName "clightning_bitcoin_spark") }}
-	location /spark/btc/ {
-		proxy_pass http://clightning_bitcoin_spark:9737/;
-	}
-		{{ end }}
-		{{ if (eq $serviceName "clightning_bitcoin_charge") }}
-	location /lightning-charge/btc/ {
-		proxy_pass http://clightning_bitcoin_charge:9112/;
-	}
-	{{ end }}		
-	{{ if (eq $serviceName "clightning_bitcoin_rest") }}
-	location /clightning-rest/btc/ {
-	    rewrite ^/clightning-rest/btc/(.*) /$1 break;
-		proxy_pass http://clightning_bitcoin_rest:3001/;
 	}
 		{{ end }}
 	{{ end }}
