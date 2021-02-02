@@ -17,8 +17,6 @@ namespace DockerGenerator
 
 			var composition = DockerComposition.FromEnvironmentVariables();
 			
-			Console.WriteLine("WithFullNode: " + composition.WithFullNode);
-			Console.WriteLine("Lightning: " + composition.SelectedLN);
 			Console.WriteLine("ReverseProxy: " + composition.SelectedProxy);
 			var generatedLocation = Path.GetFullPath(Path.Combine(root, "Generated"));
 
