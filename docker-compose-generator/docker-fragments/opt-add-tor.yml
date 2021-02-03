@@ -8,7 +8,7 @@ services:
   amboss-server:
     environment:
       AMBOSS_TORRCFILE: /usr/local/etc/tor/torrc-2
-      AMBOSS_SOCKSENDPOINT: socks://tor:9050
+      SOCKS_ENDPOINT: socks://tor:9050
     volumes:
       - "tor_servicesdir:/var/lib/tor/hidden_services"
       - "tor_torrcdir:/usr/local/etc/tor/"
