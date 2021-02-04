@@ -3,7 +3,7 @@ version: "3"
 services:
   amboss-server:
     container_name: amboss-server
-    image: "amboss/amboss-server:latest"
+    image: "amboss/amboss-server:edge"
     restart: unless-stopped
     environment:
       POSTGRES_URL: "postgres"
@@ -20,7 +20,7 @@ services:
 
   amboss-event:
     container_name: amboss-event
-    image: "amboss/amboss-event:latest"
+    image: "amboss/amboss-event:edge"
     restart: unless-stopped
     environment:
       REDIS_HOST: "redis"
@@ -30,7 +30,7 @@ services:
 
   amboss-web:
     container_name: amboss-web
-    image: "amboss/amboss-web:latest"
+    image: "amboss/amboss-web:edge"
     restart: unless-stopped
     environment:
       SERVER_SSR_URL: "http://amboss-server:4000/graphql"
