@@ -10,6 +10,7 @@ services:
       AMBOSS_HOST: ${AMBOSS_PROTOCOL:-https}://${AMBOSS_HOST}
       REDIS_HOST: "redis"
       POSTGRES_HOST: "postgres"
+      DOCKER_EVENT_IMAGE: "amboss/amboss-event:edge"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
