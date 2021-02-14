@@ -25,9 +25,9 @@
 	{{ if eq $.HostName "amboss" }}
 	{{ range $container := $.Containers }}
 		{{ $serviceName := (index $container.Labels "com.docker.compose.service") }}
-		{{ if (eq $serviceName "amboss-server") }}
+		{{ if (eq $serviceName "amboss-nest") }}
 	location /graphql {
-		proxy_pass http://amboss-server:4000/graphql;
+		proxy_pass http://amboss-nest:4000/graphql;
 	}
 		{{ end }}
 	{{ end }}
