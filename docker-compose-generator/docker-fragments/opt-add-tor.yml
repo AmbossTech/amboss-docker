@@ -5,7 +5,7 @@
 version: "3"
 
 services:
-  amboss-server:
+  amboss-nest:
     environment:
       AMBOSS_TORRCFILE: /usr/local/etc/tor/torrc-2
       SOCKS_ENDPOINT: socks://tor:9050

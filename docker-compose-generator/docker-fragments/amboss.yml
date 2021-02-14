@@ -1,18 +1,14 @@
 version: "3"
 
 services:
-  amboss-server:
-    container_name: amboss-server
-    image: "amboss/amboss-server:edge"
+  amboss-nest:
+    container_name: amboss-nest
+    image: "amboss/amboss-nest:edge"
     restart: unless-stopped
     environment:
-      POSTGRES_URL: "postgres"
       AMBOSS_HOST: ${AMBOSS_PROTOCOL:-https}://${AMBOSS_HOST}
       REDIS_HOST: "redis"
       POSTGRES_HOST: "postgres"
-      DOCKER_EVENT_IMAGE: "amboss/amboss-event:edge"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - "4000:4000"
     depends_on:
@@ -27,19 +23,19 @@ services:
       REDIS_HOST: "redis"
       POSTGRES_HOST: "postgres"
     depends_on:
-      - amboss-server
+      - amboss-nest
 
   amboss-web:
     container_name: amboss-web
     image: "amboss/amboss-web:edge"
     restart: unless-stopped
     environment:
-      SERVER_SSR_URL: "http://amboss-server:4000/graphql"
+      SERVER_SSR_URL: "http://amboss-nest:4000/graphql"
       SERVER_PATH: "/graphql"
     ports:
       - "3000:3000"
     depends_on:
-      - amboss-server
+      - amboss-nest
 
 required:
   - "postgres"
