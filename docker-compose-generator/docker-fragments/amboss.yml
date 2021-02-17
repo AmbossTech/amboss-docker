@@ -15,16 +15,6 @@ services:
       - redis
       - postgres
 
-  amboss-event:
-    container_name: amboss-event
-    image: "amboss/amboss-event:edge"
-    restart: unless-stopped
-    environment:
-      REDIS_HOST: "redis"
-      POSTGRES_HOST: "postgres"
-    depends_on:
-      - amboss-nest
-
   amboss-web:
     container_name: amboss-web
     image: "amboss/amboss-web:edge"
