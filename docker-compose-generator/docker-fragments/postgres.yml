@@ -6,6 +6,7 @@ services:
     image: postgres:9.6.20
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: amboss-db
     volumes:
       - "postgres_datadir:/var/lib/postgresql/data"
 

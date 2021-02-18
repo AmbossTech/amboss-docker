@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     image: "redis:6.0.9-alpine"
     volumes:
-      - redis_datadir:/var/lib/redis
+      - redis_datadir:/data
 
 volumes:
   redis_datadir:
