@@ -85,7 +85,7 @@ Environment variables:
     REVERSEPROXY_HTTPS_PORT: The port the reverse proxy binds to for public HTTPS requests. Default: 443
     REVERSEPROXY_DEFAULT_HOST: Optional, if using a reverse proxy nginx, specify which website should be presented if the server is accessed by its IP.
     LETSENCRYPT_EMAIL: A mail will be sent to this address if certificate expires and fail to renew automatically (eg. me@example.com)
-    AMBOSSGEN_REVERSEPROXY: Whether to use or not a reverse proxy. NGinx setup HTTPS for you. (eg. nginx, traefik, none. Default: nginx)
+    AMBOSSGEN_REVERSEPROXY: Whether to use or not a reverse proxy. NGinx setup HTTPS for you. (eg. nginx, none. Default: nginx)
     AMBOSSGEN_ADDITIONAL_FRAGMENTS: Semi colon separated list of additional fragments you want to use (eg. opt-save-storage)
     ACME_CA_URI: The API endpoint to ask for HTTPS certificate (default: production)
     AMBOSS_ENABLE_SSH: Optional, gives Amboss SSH access to the host by allowing it to edit authorized_keys of the host, it can be used for managing the authorized_keys or updating Amboss directly through the website. (Default: false)

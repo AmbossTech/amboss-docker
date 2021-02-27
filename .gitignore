@@ -293,7 +293,6 @@ Production/.env
 *docker-compose.generated.yml
 
 Generated/acme.json
-Generated/traefik_logs/
 Generated/error
 
 

@@ -44,8 +44,8 @@ namespace DockerGenerator
 				case "nginx":
 					fragments.Add("nginx");
 					break;
-				case "traefik":
-					fragments.Add("traefik");
+				default:
+					fragments.Add("amboss-no-nginx");
 					break;
 			}
 			fragments.Add("amboss");
