@@ -7,4 +7,4 @@ services:
 
   amboss-web:
     environment:
-      SERVER_URL: "${AMBOSS_PROTOCOL:-https}://${AMBOSS_HOST}:4000/graphql"
+      SERVER_URL: "http://${AMBOSS_HOST}:4000/graphql"
