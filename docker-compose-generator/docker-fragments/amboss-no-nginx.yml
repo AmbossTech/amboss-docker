@@ -3,7 +3,6 @@ version: "3"
 services:
   amboss-nest:
     environment:
-      AMBOSS_HOST: ${AMBOSS_PROTOCOL:-https}://${AMBOSS_HOST}
       AMBOSS_PORT: 3000
 
   amboss-web:
