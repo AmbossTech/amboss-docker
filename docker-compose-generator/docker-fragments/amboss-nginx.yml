@@ -5,7 +5,7 @@ services:
     environment:
       # NGINX settings
       VIRTUAL_NETWORK: nginx-proxy
-      VIRTUAL_PORT: 3010
+      VIRTUAL_PORT: 3021
       VIRTUAL_HOST: ${AMBOSS_HOST}
       VIRTUAL_HOST_NAME: "amboss"
       SSL_POLICY: Mozilla-Modern
