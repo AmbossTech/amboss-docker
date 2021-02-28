@@ -1,6 +1,9 @@
 version: "3"
 
 services:
+  amboss-nest:
+    environment:
+      AMBOSS_PORT: 3021
   amboss-web:
     environment:
       SERVER_URL: "http://${AMBOSS_HOST}:4000/graphql"
