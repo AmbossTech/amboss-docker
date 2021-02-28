@@ -4,5 +4,3 @@ services:
   amboss-web:
     environment:
       SERVER_URL: "http://${AMBOSS_HOST}:4000/graphql"
-    ports:
-      - "80:3000"
