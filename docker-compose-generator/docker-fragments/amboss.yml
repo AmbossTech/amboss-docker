@@ -3,7 +3,7 @@ version: "3"
 services:
   amboss-nest:
     container_name: amboss-nest
-    image: "amboss/amboss-nest:0.0.3"
+    image: "amboss/amboss-nest:0.0.4"
     restart: unless-stopped
     environment:
       AMBOSS_HOST: ${AMBOSS_PROTOCOL:-https}://${AMBOSS_HOST}
@@ -17,7 +17,7 @@ services:
 
   amboss-web:
     container_name: amboss-web
-    image: "amboss/amboss-web:0.0.3"
+    image: "amboss/amboss-web:0.0.4"
     restart: unless-stopped
     environment:
       SERVER_SSR_URL: "http://amboss-nest:4000/graphql"
