@@ -73,7 +73,6 @@ This script will:
 * Start Amboss
 
 You can run again this script if you desire to change your configuration.
-Except BTC and LTC, other crypto currencies are maintained by their own community. Run at your own risk.
 
 Make sure you own a domain with DNS record pointing to your website.
 If you want HTTPS setup automatically with Let's Encrypt, leave REVERSEPROXY_HTTP_PORT at it's default value of 80 and make sure this port is accessible from the internet.
@@ -93,7 +92,7 @@ Environment variables:
     AMBOSS_IMAGE: Allows you to specify the amboss docker image to use over the default version. (Default: current stable version of amboss)
     AMBOSS_PROTOCOL: Allows you to specify the external transport protocol of Amboss. (Default: https)
 Add-on specific variables:
-    AMBOSSGEN_EXCLUDE_FRAGMENTS:  Semicolon-separated list of fragments you want to forcefully exclude (eg. litecoin-clightning)
+    AMBOSSGEN_EXCLUDE_FRAGMENTS:  Semicolon-separated list of fragments you want to forcefully exclude
 END
 }
 START=""
