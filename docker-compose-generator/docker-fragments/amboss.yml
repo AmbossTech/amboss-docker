@@ -3,7 +3,7 @@ version: "3"
 services:
   amboss-nest:
     container_name: amboss-nest
-    image: "amboss/amboss-nest:0.0.7"
+    image: "amboss/amboss-nest:0.0.8"
     restart: unless-stopped
     environment:
       AMBOSS_HOST: ${AMBOSS_PROTOCOL:-https}://${AMBOSS_HOST}
