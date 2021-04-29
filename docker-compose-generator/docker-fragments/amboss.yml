@@ -23,7 +23,7 @@ services:
       SERVER_SSR_URL: "http://amboss-nest:4000/graphql"
       SERVER_PATH: "/graphql"
     ports:
-      - "3030:3000"
+      - "3040:3000"
     depends_on:
       - amboss-nest
 
